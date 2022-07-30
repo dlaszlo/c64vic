@@ -86,6 +86,9 @@ const App = () => {
         if (value === "0") {
             setMemAreas1("0")
         }
+        if (value === "1" && memAreas2 === "0") {
+            setMemAreas2("2")
+        }
     }
 
     const setBitmapValue = (value) => {
