@@ -2,20 +2,21 @@ import React, {useState} from 'react'
 
 import Dropdown from "./components/Dropdown";
 import Warning from "./components/Warning";
+import ReactCodeSinppet from 'react-code-snippet'
 import {
-    vicBankList,
-    map_dd00,
-    map_dd02,
     bitmapList,
     charMemList,
+    map_01,
+    map_d011,
+    map_d016,
+    map_dd00,
+    map_dd02,
     memAreas1List,
     memAreas2List,
     memAreas3List,
-    map_01,
     screenMemList,
     screenModeList,
-    map_d011,
-    map_d016
+    vicBankList
 } from "./constants"
 import './App.css';
 
@@ -114,94 +115,123 @@ const App = () => {
         setCharMem(value)
     }
 
+    const getLabel = (arr, val) => {
+        return arr.find(value => value.value === val).label
+    }
+
     return (
         <>
-            <div>
-                <Dropdown fieldName="memAreas1"
-                          label="$A000-$BFFF: "
-                          options={memAreas1List}
-                          value={memAreas1}
-                          onChange={(event) => setMemAreas1Value(event.target.value)}/>
+            <div className="container">
+                <div className="container-item">
+                    <h2>Memory areas:</h2>
+                    <Dropdown fieldName="memAreas1"
+                              label="$a000-$bfff: "
+                              options={memAreas1List}
+                              value={memAreas1}
+                              onChange={(event) => setMemAreas1Value(event.target.value)}/>
 
-                <Dropdown fieldName="memAreas2"
-                          label="$D000-$DFFF: "
-                          options={memAreas2List}
-                          value={memAreas2}
-                          onChange={(event) => setMemAreas2Value(event.target.value)}/>
+                    <Dropdown fieldName="memAreas2"
+                              label="$d000-$dfff: "
+                              options={memAreas2List}
+                              value={memAreas2}
+                              onChange={(event) => setMemAreas2Value(event.target.value)}/>
 
-                <Dropdown fieldName="memAreas3"
-                          label="$E000-$FFFF: "
-                          options={memAreas3List}
-                          value={memAreas3}
-                          onChange={(event) => setMemAreas3Value(event.target.value)}/>
+                    <Dropdown fieldName="memAreas3"
+                              label="$e000-$ffff: "
+                              options={memAreas3List}
+                              value={memAreas3}
+                              onChange={(event) => setMemAreas3Value(event.target.value)}/>
+                    <br />
+                    <code>
+                        ; Memory areas: <br/>
+                        ; $a000-$bfff: {getLabel(memAreas1List, memAreas1)}<br/>
+                        ; $d000-$dfff: {getLabel(memAreas2List, memAreas2)}<br/>
+                        ; $e000-$ffff: {getLabel(memAreas3List, memAreas3)}<br/>
+                        lda #{map_01[memAreas1 + memAreas2 + memAreas3]} <br/>
+                        sta $01
+                    </code>
+                </div>
+                <div className="container-item">
+                    <h2>Switch bank:</h2>
+                    <Dropdown fieldName="vicBank"
+                              label="VIC bank: "
+                              options={vicBankList}
+                              value={bank}
+                              onChange={(event) => setBank(event.target.value)}/>
+                    <Warning visible={bank === "0"} warningText="(The VIC will see the character ROM at $1000-$2000)"/>
+                    <Warning visible={bank === "2"} warningText="(The VIC will see the character ROM at $9000-$a000)"/>
+                    <code>
+                        <br />
+                        ; VIC Bank: <br />
+                        ; {getLabel(vicBankList, bank)}<br/>
+                        lda #{map_dd00[bank]} <br/>
+                        sta $dd00 <br />
+                        <br />
+                        ; VIC Bank (Sparkle): <br />
+                        ; {getLabel(vicBankList, bank)}<br />
+                        lda #{map_dd02[bank]}<br/>
+                        sta $dd02
+                    </code>
+                </div>
+                <div className="container-item">
+                    <h2>VIC memory scheme:</h2>
+                    <Dropdown fieldName="bitmap"
+                              label="Bitmap: "
+                              options={bitmapList}
+                              value={bitmap}
+                              onChange={(event) => setBitmapValue(event.target.value)}/>
 
-                <Dropdown fieldName="vicBank"
-                          label="VIC bank: "
-                          options={vicBankList}
-                          value={bank}
-                          onChange={(event) => setBank(event.target.value)}/>
-                <Warning visible={bank === "0"} warningText="(The VIC will see the character ROM at $1000-$2000)"/>
-                <Warning visible={bank === "2"} warningText="(The VIC will see the character ROM at $9000-$a000)"/>
+                    <Dropdown fieldName="charMem"
+                              label="CharMem: "
+                              options={charMemList}
+                              value={charMem}
+                              onChange={(event) => setCharMemValue(event.target.value)}/>
 
-                <Dropdown fieldName="bitmap"
-                          label="Bitmap is at: "
-                          options={bitmapList}
-                          value={bitmap}
-                          onChange={(event) => setBitmapValue(event.target.value)}/>
-
-                <Dropdown fieldName="charMem"
-                          label="Charmem is at: "
-                          options={charMemList}
-                          value={charMem}
-                          onChange={(event) => setCharMemValue(event.target.value)}/>
-
-                <Dropdown fieldName="screenMem"
-                          label="ScreenMem is at: "
-                          options={screenMemList}
-                          value={screenMem}
-                          onChange={(event) => setScreenMem(event.target.value)}/>
-
-                <Dropdown fieldName="screenMode"
-                          label="Screen mode: "
-                          options={screenModeList}
-                          value={screenMode}
-                          onChange={(event) => setScreenMode(event.target.value)}/>
+                    <Dropdown fieldName="screenMem"
+                              label="ScreenMem: "
+                              options={screenMemList}
+                              value={screenMem}
+                              onChange={(event) => setScreenMem(event.target.value)}/>
+                    <code>
+                        <br/>
+                        ; Memory scheme: <br/>
+                        ; Bitmap: {getLabel(bitmapList, bitmap)} <br/>
+                        ; CharMem: {getLabel(charMemList, charMem)} <br/>
+                        ; ScreenMem: {getLabel(screenMemList, screenMem)} <br/>
+                        lda #%{getMemoryScheme(bitmap, screenMem, charMem)} <br/>
+                        sta $d018
+                    </code>
+                </div>
+                <div className="container-item">
+                    <h2>Screen mode:</h2>
+                    <Dropdown fieldName="screenMode"
+                              label="Screen mode: "
+                              options={screenModeList}
+                              value={screenMode}
+                              onChange={(event) => setScreenMode(event.target.value)}/>
+                    <code>
+                        <br/>
+                        ; Screen mode: {getLabel(screenModeList, screenMode)} <br/>
+                        lda #{map_d011[screenMode]} <br/>
+                        sta $d011<br/>
+                        lda #{map_d016[screenMode]} <br/>
+                        sta $d016
+                    </code>
+                </div>
+                <div className="container-item">
+                    <h2>Constants:</h2>
+                    <code>
+                        BITMAP     = ${getBitmapAddress(bank, bitmap)} <br/>
+                        SCREEN     = ${getScreenMemAddress(bank, screenMem)} <br/>
+                        CHARSET    = ${getCharMemAddress(bank, charMem)} <br/>
+                        COLOR      = $d800 <br/>
+                        MEMSCHEME  = %{getMemoryScheme(bitmap, screenMem, charMem)} <br/>
+                        VICBANK    = {map_dd00[bank]} <br/>
+                        VICBANK_SP = {map_dd02[bank]} <br/>
+                    </code>
+                </div>
 
             </div>
-            <h2>Memory areas:</h2>
-            <code>
-                lda {map_01[memAreas1 + memAreas2 + memAreas3]} <br />
-                sta $01
-            </code>
-            <h2>Switch bank:</h2>
-            <code>
-                lda {map_dd00[bank]} <br/>
-                sta $dd00
-            </code>
-            <h2>Switch bank (Sparkle):</h2>
-            <code>
-                lda {map_dd02[bank]} <br/>
-                sta $dd02
-            </code>
-            <h2>VIC memory scheme:</h2>
-            <code>
-                lda #%{getMemoryScheme(bitmap, screenMem, charMem)} <br/>
-                sta $d018
-            </code>
-            <h2>Screen mode:</h2>
-            <code>
-                lda {map_d011[screenMode]} <br/>
-                sta $d011<br/>
-                lda {map_d016[screenMode]} <br/>
-                sta $d016
-            </code>
-            <h2>Constants:</h2>
-            <code>
-                BITMAP  = ${getBitmapAddress(bank, bitmap)} <br />
-                SCREEN  = ${getScreenMemAddress(bank, screenMem)} <br />
-                CHARSET = ${getCharMemAddress(bank, charMem)} <br />
-                COLOR   = $d800
-            </code>
         </>
     );
 }

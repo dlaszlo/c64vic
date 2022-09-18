@@ -6,17 +6,17 @@ export const vicBankList = [
 ]
 
 export const map_dd00 = {
-    "0": "#$3f",
-    "1": "#$3e",
-    "2": "#$3d",
-    "3": "#$3c",
+    "0": "$3f",
+    "1": "$3e",
+    "2": "$3d",
+    "3": "$3c",
 }
 
 export const map_dd02 = {
-    "0": "#$3c",
-    "1": "#$3d",
-    "2": "#$3e",
-    "3": "#$3f",
+    "0": "$3c",
+    "1": "$3d",
+    "2": "$3e",
+    "3": "$3f",
 }
 
 export const bitmapList = [
@@ -71,38 +71,38 @@ export const memAreas3List = [
 ]
 
 export const map_01 = {
-    "010": "#$31",
-    "011": "#$32",
-    "111": "#$33",
-    "000": "#$34",
-    "020": "#$35",
-    "021": "#$36",
-    "121": "#$37",
+    "010": "$31",
+    "011": "$32",
+    "111": "$33",
+    "000": "$34",
+    "020": "$35",
+    "021": "$36",
+    "121": "$37",
 }
 
 export const screenModeList = [
-    {label: "Hires text mode", value: "0"},
-    {label: "Multicolor text mode", value: "1"},
-    {label: "Hires bitmap mode", value: "2"},
-    {label: "Multicolor bitmap mode", value: "3"},
-    {label: "ECM text mode", value: "4"},
-    {label: "Invalid mode", value: "5"},
+    {label: "Hires text", value: "0"},
+    {label: "Multicolor text", value: "1"},
+    {label: "Hires bitmap", value: "2"},
+    {label: "Multicolor bitmap", value: "3"},
+    {label: "ECM text", value: "4"},
+    {label: "Invalid", value: "5"},
 ]
 
 export const map_d011 = {
-    "0" : "#$1b",
-    "1" : "#$1b",
-    "2" : "#$3b",
-    "3" : "#$3b",
-    "4" : "#$5b",
-    "5" : "#$0b",
+    "0" : "$1b",
+    "1" : "$1b",
+    "2" : "$3b",
+    "3" : "$3b",
+    "4" : "$5b",
+    "5" : "$0b",
 }
 
 export const map_d016 = {
-    "0" : "#$08",
-    "1" : "#$18",
-    "2" : "#$08",
-    "3" : "#$18",
-    "4" : "#$08",
-    "5" : "#$08",
+    "0" : "$08",
+    "1" : "$18",
+    "2" : "$08",
+    "3" : "$18",
+    "4" : "$08",
+    "5" : "$08",
 }

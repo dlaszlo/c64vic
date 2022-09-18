@@ -9,8 +9,8 @@ html {
 }
 
 body {
-    background-color: rgb(0, 0, 170);
-    margin: 5%;
+    background-color: rgb(0, 136, 255);
+    margin: 0%;
     padding: 2rem;
     color: rgb(0, 136, 255);
     font: 1.1rem Inconsolata, monospace;
@@ -27,6 +27,20 @@ h2 {
     text-shadow: none;
 }
 
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    /* justify-content: flex-start;      */
+    align-items: stretch;
+}
+
+.container-item {
+    margin: 10px;
+    background-color: rgb(0, 0, 170);
+    padding: 0px 20px 20px 20px;
+    flex: auto;
+}
+
 .inputField {
     margin-top: 10px;
     margin-bottom: 0px;
@@ -39,13 +53,13 @@ h2 {
 
 label {
     display: block;
-    width: 200px;
+    width: 130px;
     float: left;
     padding-right: 20px;
 }
 
 select {
-    width: 300px;
+    width: 170px;
 }
 
 pre {
