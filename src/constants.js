@@ -81,12 +81,13 @@ export const map_01 = {
 }
 
 export const screenModeList = [
-    {label: "Hires text", value: "0"},
-    {label: "Multicolor text", value: "1"},
-    {label: "Hires bitmap", value: "2"},
-    {label: "Multicolor bitmap", value: "3"},
-    {label: "ECM text", value: "4"},
-    {label: "Invalid", value: "5"},
+    {label: "Hires text mode", value: "0"},
+    {label: "Multicolor text mode", value: "1"},
+    {label: "Hires bitmap mode", value: "2"},
+    {label: "Multicolor bitmap mode", value: "3"},
+    {label: "ECM text mode", value: "4"},
+    {label: "Invalid mode", value: "5"},
+    {label: "Disable screen", value: "6"},
 ]
 
 export const map_d011 = {
@@ -95,7 +96,8 @@ export const map_d011 = {
     "2" : "$3b",
     "3" : "$3b",
     "4" : "$5b",
-    "5" : "$0b",
+    "5" : "$7b",
+    "6" : "$0b",
 }
 
 export const map_d016 = {
@@ -105,4 +107,5 @@ export const map_d016 = {
     "3" : "$18",
     "4" : "$08",
     "5" : "$08",
+    "6" : "$08",
 }

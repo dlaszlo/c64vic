@@ -211,7 +211,7 @@ const App = () => {
                               onChange={(event) => setScreenMode(event.target.value)}/>
                     <code>
                         <br/>
-                        ; {getLabel(screenModeList, screenMode)} mode <br/>
+                        ; {getLabel(screenModeList, screenMode)}<br/>
                         lda #{map_d011[screenMode]} <br/>
                         sta $d011<br/>
                         lda #{map_d016[screenMode]} <br/>
