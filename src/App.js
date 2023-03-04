@@ -232,13 +232,13 @@ const App = () => {
                               onChange={(event) => setScreenMode(event.target.value)}/>
 
                     <Dropdown fieldName="screenWidth"
-                              label="Screen width: "
+                              label="Width: "
                               options={screenWidthList}
                               value={screenWidth}
                               onChange={(event) => setScreenWidth(event.target.value)}/>
 
                     <Dropdown fieldName="screenHeight"
-                              label="Screen height: "
+                              label="Height: "
                               options={screenHeightList}
                               value={screenHeight}
                               onChange={(event) => setScreenHeight(event.target.value)}/>
