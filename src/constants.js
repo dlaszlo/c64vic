@@ -86,26 +86,64 @@ export const screenModeList = [
     {label: "Hires bitmap mode", value: "2"},
     {label: "Multicolor bitmap mode", value: "3"},
     {label: "ECM text mode", value: "4"},
-    {label: "Invalid mode", value: "5"},
-    {label: "Disable screen", value: "6"},
+    {label: "ECM multicolor text mode (invalid)", value: "5"},
+    {label: "ECM hires bitmap mode (invalid)", value: "6"},
+    {label: "ECM multicolor bitmap mode (invalid)", value: "7"},
+    {label: "Disable screen", value: "8"},
+]
+
+export const xScrollList = [
+    {label: "0 px", value: "0"},
+    {label: "1 px", value: "1"},
+    {label: "2 px", value: "2"},
+    {label: "3 px", value: "3"},
+    {label: "4 px", value: "4"},
+    {label: "5 px", value: "5"},
+    {label: "6 px", value: "6"},
+    {label: "7 px", value: "7"},
+]
+
+export const yScrollList = [
+    {label: "0 px", value: "0"},
+    {label: "1 px", value: "1"},
+    {label: "2 px", value: "2"},
+    {label: "3 px", value: "3"},
+    {label: "4 px", value: "4"},
+    {label: "5 px", value: "5"},
+    {label: "6 px", value: "6"},
+    {label: "7 px", value: "7"},
+]
+
+export const screenWidthList = [
+    {label: "38 columns", value: "0"},
+    {label: "40 columns", value: "8"}
+]
+
+export const screenHeightList = [
+    {label: "24 rows", value: "0"},
+    {label: "25 rows", value: "8"}
 ]
 
 export const map_d011 = {
-    "0" : "$1b",
-    "1" : "$1b",
-    "2" : "$3b",
-    "3" : "$3b",
-    "4" : "$5b",
-    "5" : "$7b",
-    "6" : "$0b",
+    "0": 1 << 4,
+    "1": 1 << 4,
+    "2": 3 << 4,
+    "3": 3 << 4,
+    "4": 5 << 4,
+    "5": 5 << 4,
+    "6": 7 << 4,
+    "7": 7 << 4,
+    "8": 0 << 4,
 }
 
 export const map_d016 = {
-    "0" : "$08",
-    "1" : "$18",
-    "2" : "$08",
-    "3" : "$18",
-    "4" : "$08",
-    "5" : "$08",
-    "6" : "$08",
+    "0": 0 << 4,
+    "1": 1 << 4,
+    "2": 0 << 4,
+    "3": 1 << 4,
+    "4": 0 << 4,
+    "5": 1 << 4,
+    "6": 0 << 4,
+    "7": 1 << 4,
+    "8": 0 << 4,
 }

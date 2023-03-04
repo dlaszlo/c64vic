@@ -1,5 +1,5 @@
 
-const Dropdown = ({fieldName, label, value, options, onChange}) => {
+export const Dropdown = ({fieldName, label, value, options, onChange}) => {
     return (
         <div className="inputField">
             <label htmlFor={'input' + fieldName}>{label}</label>

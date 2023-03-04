@@ -15,7 +15,11 @@ import {
     memAreas3List,
     screenMemList,
     screenModeList,
-    vicBankList
+    vicBankList,
+    screenHeightList,
+    screenWidthList,
+    xScrollList,
+    yScrollList
 } from "./constants"
 import './App.css';
 
@@ -52,6 +56,19 @@ const getCharMemAddress = (bank, charMem) => {
     return rs.substring(rs.length - 4)
 }
 
+const getD011 = (screenMode, screenHeight, yScroll) => {
+    let d011 = map_d011[screenMode]
+    let mode = parseInt(d011) + parseInt(screenHeight) + parseInt(yScroll)
+    let rs = "00" + mode.toString(16);
+    return "$" + rs.substring(rs.length - 2)
+}
+
+const getD016 = (screenMode, screenWidth, xScroll) => {
+    let d016 = map_d016[screenMode]
+    let mode = parseInt(d016) + parseInt(screenWidth) + parseInt(xScroll)
+    let rs = "00" + mode.toString(16);
+    return "$" + rs.substring(rs.length - 2)
+}
 
 const App = () => {
     const [bank, setBank] = useState("0")
@@ -62,6 +79,10 @@ const App = () => {
     const [memAreas2, setMemAreas2] = useState("2")
     const [memAreas3, setMemAreas3] = useState("0")
     const [screenMode, setScreenMode] = useState("0")
+    const [screenWidth, setScreenWidth] = useState("8")
+    const [xScroll, setXScroll] = useState("0")
+    const [screenHeight, setScreenHeight] = useState("8")
+    const [yScroll, setYScroll] = useState("0")
 
     const setMemAreas1Value = (value) => {
         setMemAreas1(value)
@@ -209,14 +230,41 @@ const App = () => {
                               options={screenModeList}
                               value={screenMode}
                               onChange={(event) => setScreenMode(event.target.value)}/>
+
+                    <Dropdown fieldName="screenWidth"
+                              label="Screen width: "
+                              options={screenWidthList}
+                              value={screenWidth}
+                              onChange={(event) => setScreenWidth(event.target.value)}/>
+
+                    <Dropdown fieldName="xScroll"
+                              label="X scroll: "
+                              options={xScrollList}
+                              value={xScroll}
+                              onChange={(event) => setXScroll(event.target.value)}/>
+
+                    <Dropdown fieldName="screenHeight"
+                              label="Screen height: "
+                              options={screenHeightList}
+                              value={screenHeight}
+                              onChange={(event) => setScreenHeight(event.target.value)}/>
+
+                    <Dropdown fieldName="yScroll"
+                              label="Y scroll: "
+                              options={yScrollList}
+                              value={yScroll}
+                              onChange={(event) => setYScroll(event.target.value)}/>
                     <code>
                         <br/>
                         ; {getLabel(screenModeList, screenMode)}<br/>
-                        lda #{map_d011[screenMode]} <br/>
+                        ; Screen width: {getLabel(screenWidthList, screenWidth)}, X scroll: {getLabel(xScrollList, xScroll)} <br/>
+                        ; Screen height: {getLabel(screenHeightList, screenHeight)}, Y scroll: {getLabel(yScrollList, yScroll)} <br/>
+                        lda #{getD011(screenMode, screenHeight, yScroll)} <br/>
                         sta $d011<br/>
-                        lda #{map_d016[screenMode]} <br/>
+                        lda #{getD016(screenMode, screenWidth, xScroll)} <br/>
                         sta $d016
                     </code>
+
                 </div>
                 <div className="container-item">
                     <h2>Constants</h2>
