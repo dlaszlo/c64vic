@@ -82,7 +82,7 @@ const App = () => {
     const [screenWidth, setScreenWidth] = useState("8")
     const [xScroll, setXScroll] = useState("0")
     const [screenHeight, setScreenHeight] = useState("8")
-    const [yScroll, setYScroll] = useState("0")
+    const [yScroll, setYScroll] = useState("3")
 
     const setMemAreas1Value = (value) => {
         setMemAreas1(value)
@@ -237,17 +237,18 @@ const App = () => {
                               value={screenWidth}
                               onChange={(event) => setScreenWidth(event.target.value)}/>
 
+                    <Dropdown fieldName="screenHeight"
+                              label="Screen height: "
+                              options={screenHeightList}
+                              value={screenHeight}
+                              onChange={(event) => setScreenHeight(event.target.value)}/>
+
                     <Dropdown fieldName="xScroll"
                               label="X scroll: "
                               options={xScrollList}
                               value={xScroll}
                               onChange={(event) => setXScroll(event.target.value)}/>
 
-                    <Dropdown fieldName="screenHeight"
-                              label="Screen height: "
-                              options={screenHeightList}
-                              value={screenHeight}
-                              onChange={(event) => setScreenHeight(event.target.value)}/>
 
                     <Dropdown fieldName="yScroll"
                               label="Y scroll: "
@@ -257,8 +258,8 @@ const App = () => {
                     <code>
                         <br/>
                         ; {getLabel(screenModeList, screenMode)}<br/>
-                        ; Screen width: {getLabel(screenWidthList, screenWidth)}, X scroll: {getLabel(xScrollList, xScroll)} <br/>
-                        ; Screen height: {getLabel(screenHeightList, screenHeight)}, Y scroll: {getLabel(yScrollList, yScroll)} <br/>
+                        ; {getLabel(screenWidthList, screenWidth)}, {getLabel(screenHeightList, screenHeight)} <br/>
+                        ; X scroll: {getLabel(xScrollList, xScroll)}, Y scroll: {getLabel(yScrollList, yScroll)} <br/>
                         lda #{getD011(screenMode, screenHeight, yScroll)} <br/>
                         sta $d011<br/>
                         lda #{getD016(screenMode, screenWidth, xScroll)} <br/>
