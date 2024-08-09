@@ -274,9 +274,9 @@ const App = () => {
                         SCREEN           = ${getScreenMemAddress(bank, screenMem)} <br/>
                         CHARSET          = ${getCharMemAddress(bank, charMem)} <br/>
                         COLOR            = $d800 <br/>
-                        MEM_SCHEME       = %{getMemoryScheme(bitmap, screenMem, charMem)} <br/>
-                        VIC_BANK         = {map_dd00[bank]} <br/>
-                        VIC_BANK_SPARKLE = {map_dd02[bank]} <br/>
+                        MEM_SCHEME       = #%{getMemoryScheme(bitmap, screenMem, charMem)} <br/>
+                        VIC_BANK         = #{map_dd00[bank]} <br/>
+                        VIC_BANK_SPARKLE = #{map_dd02[bank]} <br/>
                     </code>
                 </div>
             </div>
